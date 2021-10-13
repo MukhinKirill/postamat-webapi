@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
 using PostamatService.Data;
 using PostamatService.Data.Repositories;
 
@@ -33,5 +35,16 @@ namespace PostamatService.Web.Extensions
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IPostamatRepository, PostamatRepository>();
         }
+
+        public static void ConfigureLogging(this IServiceCollection services)
+        {
+            services.AddLogging(_ =>
+            {
+                _.ClearProviders();
+                _.AddProvider(new NLogLoggerProvider());
+            });
+        }
+        public static void ConfigureResponseCaching(this IServiceCollection services) =>
+            services.AddResponseCaching();
     }
 }

@@ -5,6 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using PostamatService.Web.Extensions;
 
 namespace PostamatService.Web
@@ -23,19 +26,19 @@ namespace PostamatService.Web
         {
             services.ConfigureCors();
             services.ConfigureIISIntegration();
+            services.ConfigureLogging();
             services.ConfigureSqlContext(Configuration);
             services.ConfigureRepositories();
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers(config =>
             {
-                config.RespectBrowserAcceptHeader = true;
-                config.ReturnHttpNotAcceptable = true;
                 config.CacheProfiles.Add("120SecondsDuration", new CacheProfile { Duration = 120 });
-            }).AddNewtonsoftJson();
-            services.Configure<ApiBehaviorOptions>(options =>
+            }).AddNewtonsoftJson(options =>
             {
-                options.SuppressModelStateInvalidFilter = true;
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
+            services.ConfigureResponseCaching();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PostamatService.Web", Version = "v1" });
