@@ -6,10 +6,12 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.11" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\PostamatService.Data.Repositories\PostamatService.Data.Repositories.csproj" />
     <ProjectReference Include="..\PostamatService.Data\PostamatService.Data.csproj" />
   </ItemGroup>
 
