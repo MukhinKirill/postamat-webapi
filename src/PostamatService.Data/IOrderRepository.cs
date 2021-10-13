@@ -1,11 +1,12 @@
-﻿using PostamatService.Data.Models;
+﻿using System.Threading.Tasks;
+using PostamatService.Data.Models;
 
 namespace PostamatService.Data
 {
     public interface IOrderRepository
     {
-        void Create(Order order);
-        void Update(Order order);
-        Order Get(int number);
+        void CreateOrder(Order order);
+        void UpdateOrder(Order order);
+        Task<Order> Get(int number, bool trackChanges);
     }
 }

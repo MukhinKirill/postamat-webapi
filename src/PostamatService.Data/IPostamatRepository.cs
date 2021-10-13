@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-
+using System.Threading.Tasks;
 using PostamatService.Data.Models;
 
 namespace PostamatService.Data
 {
     public interface IPostamatRepository
     {
-        IEnumerable<Postamat> GetAll();
-        IEnumerable<Postamat> GetActive();
-        IEnumerable<Postamat> Get(string number);
+        Task<IEnumerable<Postamat>> GetAll(bool trackChanges);
+        Task<IEnumerable<Postamat>> GetActive(bool trackChanges);
+        Task<Postamat> Get(string number, bool trackChanges);
     }
 }
