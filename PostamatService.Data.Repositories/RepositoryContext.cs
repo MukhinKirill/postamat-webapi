@@ -12,6 +12,7 @@ namespace PostamatService.Data.Repositories
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
             modelBuilder.ApplyConfiguration(new PostamatConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductInOrderConfiguration());
         }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Postamat> Postamats { get; set; }
