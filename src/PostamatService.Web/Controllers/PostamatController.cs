@@ -10,7 +10,7 @@ using PostamatService.Web.DTO;
 
 namespace PostamatService.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/postamat")]
     [ApiController]
     public class PostamatController : ControllerBase
     {
