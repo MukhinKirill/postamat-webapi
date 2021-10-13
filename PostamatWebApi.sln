@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostamatService.Web", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostamatService.Data", "src\PostamatService.Data\PostamatService.Data.csproj", "{D88BF766-AAD7-4FFE-8342-2E3E51024631}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostamatService.Data.Repositories", "PostamatService.Data.Repositories\PostamatService.Data.Repositories.csproj", "{DB83BF19-A8DB-4917-AF72-69F30EB7F623}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostamatService.Data.Repositories", "src\PostamatService.Data.Repositories\PostamatService.Data.Repositories.csproj", "{DB83BF19-A8DB-4917-AF72-69F30EB7F623}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
