@@ -1,10 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PostamatService.Data.Models
 {
     public class Order
     {
-        [Column("OrderId")]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Number { get; set; }
         public OrderStatus Status { get; set; }
         public string[] Products { get; set; }
