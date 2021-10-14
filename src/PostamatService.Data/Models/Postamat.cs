@@ -6,8 +6,7 @@ namespace PostamatService.Data.Models
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "Employee name is a required field.")]
-        [MaxLength(8, ErrorMessage = "Maximum length for the Number is 8 characters.")]
-        [MinLength(8, ErrorMessage = "Minimum length for the Number is 8 characters.")]
+        [StringLength(8, ErrorMessage = "Length for the Number is 8 characters.", MinimumLength = 8)]
         public string Number { get; set; }
         [Required(ErrorMessage = "Employee name is a required field.")]
         [MaxLength(256, ErrorMessage = "Maximum length for the Address is 256 characters.")]

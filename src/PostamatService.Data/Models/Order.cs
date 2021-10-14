@@ -12,11 +12,10 @@ namespace PostamatService.Data.Models
         public OrderStatus Status { get; set; }
         public IEnumerable<ProductInOrder> Products { get; set; }
         public decimal Cost { get; set; }
-        [Required(ErrorMessage = "Employee name is a required field.")]
-        [MaxLength(15, ErrorMessage = "Maximum length for the PhoneNumber is 15 characters.")]
-        [MinLength(15, ErrorMessage = "Minimum length for the PhoneNumber is 15 characters.")]
+        [Required(ErrorMessage = "Client phone is a required field.")]
+        [StringLength(15, ErrorMessage = "Length for the PhoneNumber is 15 characters.", MinimumLength = 15)]
         public string PhoneNumber { get; set; }
-        [Required(ErrorMessage = "Employee name is a required field.")]
+        [Required(ErrorMessage = "Client fullname name is a required field.")]
         [MaxLength(100, ErrorMessage = "Maximum length for the FullName is 100 characters.")]
         public string FullName { get; set; }
         [ForeignKey(nameof(Postamat))]
