@@ -35,6 +35,7 @@ namespace PostamatService.Web
                 config.CacheProfiles.Add("120SecondsDuration", new CacheProfile { Duration = 120 });
             }).AddNewtonsoftJson(options =>
             {
+                options.SerializerSettings.Converters.Add(new StringEnumConverter { NamingStrategy = new CamelCaseNamingStrategy() });
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
