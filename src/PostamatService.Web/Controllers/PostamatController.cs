@@ -28,7 +28,7 @@ namespace PostamatService.Web.Controllers
         [HttpGet("active")]
         public async Task<IActionResult> GetActive()
         {
-            var postamats = await _postamatRepository.GetActive(trackChanges: false);
+            var postamats = await _postamatRepository.GetActive(false);
             var postamatsDto = _mapper.Map<IEnumerable<PostamatDto>>(postamats);
             return Ok(postamatsDto);
         }
@@ -37,7 +37,7 @@ namespace PostamatService.Web.Controllers
         [HttpGet("{number}")]
         public async Task<IActionResult> Get(string number)
         {
-            var postamat = await _postamatRepository.Get(number, trackChanges: false);
+            var postamat = await _postamatRepository.Get(number, false);
             if (postamat == null)
             {
                 _logger.LogInformation($"Postamat with number: {number} doesn't exist.");
