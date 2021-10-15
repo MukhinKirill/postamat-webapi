@@ -9,6 +9,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using PostamatService.Web.ActionFilters;
 using PostamatService.Web.Extensions;
 
 namespace PostamatService.Web
@@ -37,6 +38,11 @@ namespace PostamatService.Web
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+            services.AddScoped<ValidationFilterAttribute>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PostamatService.Web", Version = "v1" });

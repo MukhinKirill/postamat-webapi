@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using PostamatService.Data;
 using PostamatService.Data.Models;
+using PostamatService.Web.ActionFilters;
 using PostamatService.Web.DTO;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -46,16 +45,9 @@ namespace PostamatService.Web.Controllers
 
         // POST api/<OrderController>
         [HttpPost]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> Post([FromBody] OrderForCreateDto order)
         {
-            if (order.Products.Length >= 10
-                || !Regex.IsMatch(order.PostamatNumber, @"^\d{4}-\d{3}$")
-                || !Regex.IsMatch(order.PhoneNumber, @"^\+7\d{3}-\d{3}-\d{2}-\d{2}$")
-                )
-            {
-                return BadRequest();
-            }
-
             var postamat = await _postamatRepository.Get(order.PostamatNumber, false);
             if (postamat is null)
             {
@@ -87,6 +79,7 @@ namespace PostamatService.Web.Controllers
 
         // PUT api/<OrderController>/5
         [HttpPut("{number}")]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> Put(int number, [FromBody] OrderForUpdateDto order)
         {
             var orderEntity = await _orderRepository.Get(number, true);
@@ -94,11 +87,6 @@ namespace PostamatService.Web.Controllers
             {
                 _logger.LogInformation($"Order with number: {number} doesn't exist.");
                 return NotFound();
-            }
-            if (order.Products.Length >= 10
-                || !Regex.IsMatch(order.PhoneNumber, @"^\+7\d{3}-\d{3}-\d{2}-\d{2}$"))
-            {
-                return BadRequest();
             }
 
             _mapper.Map(order, orderEntity);
