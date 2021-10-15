@@ -31,16 +31,12 @@ namespace PostamatService.Web
             services.ConfigureSqlContext(Configuration);
             services.ConfigureRepositories();
             services.AddAutoMapper(typeof(Startup));
-            services.AddControllers(config =>
-            {
-                config.CacheProfiles.Add("120SecondsDuration", new CacheProfile { Duration = 120 });
-            }).AddNewtonsoftJson(options =>
+            services.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.Converters.Add(new StringEnumConverter { NamingStrategy = new CamelCaseNamingStrategy() });
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
-            services.ConfigureResponseCaching();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PostamatService.Web", Version = "v1" });
