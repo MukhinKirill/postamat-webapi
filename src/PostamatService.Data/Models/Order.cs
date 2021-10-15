@@ -9,8 +9,11 @@ namespace PostamatService.Data.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Number { get; set; }
+        [Required]
         public OrderStatus Status { get; set; }
+        [Required]
         public ICollection<ProductInOrder> Products { get; set; }
+        [Required]
         public decimal Cost { get; set; }
         [Required(ErrorMessage = "Client phone is a required field.")]
         [StringLength(15, ErrorMessage = "Length for the PhoneNumber is 15 characters.", MinimumLength = 15)]
