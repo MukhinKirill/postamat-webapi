@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using PostamatService.Web.ActionFilters;
+using PostamatService.Web.Authentication;
 using PostamatService.Web.Extensions;
 
 namespace PostamatService.Web
@@ -43,6 +44,9 @@ namespace PostamatService.Web
                 options.SuppressModelStateInvalidFilter = true;
             });
             services.AddScoped<ValidationFilterAttribute>();
+            services.AddScoped<ValidatePostamatAttribute>();
+            services.AddAuthentication()
+                .AddScheme<CustomAuthenticationOptions,CustomAuthenticationHandler>("custom",null,null);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PostamatService.Web", Version = "v1" });
@@ -61,7 +65,7 @@ namespace PostamatService.Web
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -12,6 +12,7 @@ using PostamatService.Web.DTO;
 
 namespace PostamatService.Web.Controllers
 {
+
     [Route("api/order")]
     [ApiController]
     public class OrderController : ControllerBase
@@ -46,19 +47,10 @@ namespace PostamatService.Web.Controllers
         // POST api/<OrderController>
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
+        [ServiceFilter(typeof(ValidatePostamatAttribute))]
         public async Task<IActionResult> Post([FromBody] OrderForCreateDto order)
         {
-            var postamat = await _postamatRepository.Get(order.PostamatNumber, false);
-            if (postamat is null)
-            {
-                return BadRequest();
-            }
-
-            if (!postamat.IsActive)
-            {
-                return Forbid();
-            }
-
+            var postamat = HttpContext.Items["postamat"] as Postamat;
             var orderEntity = _mapper.Map<Order>(order);
             orderEntity.PostamatId = postamat.Id;
             _orderRepository.CreateOrder(orderEntity);
