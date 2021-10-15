@@ -106,7 +106,7 @@ namespace PostamatService.Web.Controllers
         [HttpDelete("{number}")]
         public async Task<IActionResult> Delete(int number)
         {
-            var orderEntity = await _orderRepository.Get(number, true);
+            var orderEntity = await _orderRepository.Get(number, true);//todo; add validate of get order
             if (orderEntity is null)
             {
                 _logger.LogInformation($"Order with number: {number} doesn't exist.");

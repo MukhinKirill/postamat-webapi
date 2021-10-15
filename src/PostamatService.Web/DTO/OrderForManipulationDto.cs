@@ -9,7 +9,7 @@ namespace PostamatService.Web.DTO
         [MaxLength(10,ErrorMessage = "Max count of products is 10")]
         public string[] Products { get; set; }
         [Required(ErrorMessage = "Cost is a required field.")]
-        [RegularExpression(@"^(\d*\.)?\d+$", ErrorMessage = "Cost are not allowed.")]
+        [RegularExpression(@"^(\d*.)?\d+$", ErrorMessage = "Cost are not allowed.")]
         public decimal Cost { get; set; }
         [Required(ErrorMessage = "Client phone is a required field.")]
         [StringLength(15, ErrorMessage = "Length for the PhoneNumber is 15 characters.", MinimumLength = 15)]
