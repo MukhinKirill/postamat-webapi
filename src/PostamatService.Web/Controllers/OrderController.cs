@@ -51,9 +51,8 @@ namespace PostamatService.Web.Controllers
             var postamat = HttpContext.Items["postamat"] as Postamat;
             var orderEntity = new Order(OrderStatus.Registered, postamat.Id);
             _mapper.Map(order, orderEntity);
-            _orderRepository.CreateOrder(orderEntity);
             orderEntity.UpdateProducts(order.Products);
-            await _orderRepository.SaveAsync();
+            _orderRepository.CreateOrder(orderEntity);
             orderEntity.Postamat = postamat;
             var orderToReturn = _mapper.Map<OrderDto>(orderEntity);
             return CreatedAtRoute("GetOrder", new
@@ -71,7 +70,7 @@ namespace PostamatService.Web.Controllers
             var orderEntity = HttpContext.Items["order"] as Order;
             _mapper.Map(order, orderEntity);
             orderEntity.UpdateProducts(order.Products);
-            await _orderRepository.SaveAsync();
+            _orderRepository.UpdateOrder(orderEntity);
             return NoContent();
         }
 
@@ -83,7 +82,6 @@ namespace PostamatService.Web.Controllers
             var orderEntity = HttpContext.Items["order"] as Order;
             orderEntity.Cancel();
             _orderRepository.UpdateOrder(orderEntity);
-            await _orderRepository.SaveAsync();
             return NoContent();
         }
     }

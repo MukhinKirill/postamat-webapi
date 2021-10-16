@@ -8,6 +8,5 @@ namespace PostamatService.Data
         void CreateOrder(Order order);
         void UpdateOrder(Order order);
         Task<Order> Get(int number, bool trackChanges);
-        Task SaveAsync();
     }
 }
