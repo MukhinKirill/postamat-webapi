@@ -22,7 +22,5 @@ namespace PostamatService.Data.Repositories
         public async Task<Postamat> Get(string number, bool trackChanges) =>
             await FindByCondition(_ => _.Number == number, trackChanges)
                 .SingleOrDefaultAsync();
-
-        public async Task SaveAsync() => await RepositoryContext.SaveChangesAsync();
     }
 }
