@@ -21,7 +21,7 @@ namespace PostamatService.Web.ActionFilters
             var postamat = await _postamatRepository.Get(order.PostamatNumber);
             if (postamat is null)
             {
-                context.Result = new BadRequestObjectResult($"Postamat with number {order.PostamatNumber} is not exist");
+                context.Result = new NotFoundObjectResult($"Postamat with number {order.PostamatNumber} is not exist");
                 return;
             }
             if (!postamat.IsActive)
