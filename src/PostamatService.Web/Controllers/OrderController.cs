@@ -72,15 +72,10 @@ namespace PostamatService.Web.Controllers
         // PUT api/<OrderController>/5
         [HttpPut("{number}")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
+        [ServiceFilter(typeof(ValidateOrderExistAttribute))]
         public async Task<IActionResult> Put(int number, [FromBody] OrderForUpdateDto order)
         {
-            var orderEntity = await _orderRepository.Get(number, true);
-            if (orderEntity is null)
-            {
-                _logger.LogInformation($"Order with number: {number} doesn't exist.");
-                return NotFound();
-            }
-
+            var orderEntity = HttpContext.Items["order"] as Order;
             _mapper.Map(order, orderEntity);
             foreach (var product in order.Products.Except(orderEntity.Products.Select(_ => _.Name)))
             {
@@ -104,15 +99,10 @@ namespace PostamatService.Web.Controllers
 
         // DELETE api/<OrderController>/5
         [HttpDelete("{number}")]
+        [ServiceFilter(typeof(ValidateOrderExistAttribute))]
         public async Task<IActionResult> Delete(int number)
         {
-            var orderEntity = await _orderRepository.Get(number, true);//todo; add validate of get order
-            if (orderEntity is null)
-            {
-                _logger.LogInformation($"Order with number: {number} doesn't exist.");
-                return NotFound();
-            }
-
+            var orderEntity = HttpContext.Items["order"] as Order;
             orderEntity.Status = OrderStatus.Canceled;
             _orderRepository.UpdateOrder(orderEntity);
             await _orderRepository.SaveAsync();

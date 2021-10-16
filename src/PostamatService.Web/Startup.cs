@@ -45,6 +45,7 @@ namespace PostamatService.Web
             });
             services.AddScoped<ValidationFilterAttribute>();
             services.AddScoped<ValidatePostamatAttribute>();
+            services.AddScoped<ValidateOrderExistAttribute>();
             services.AddAuthentication()
                 .AddScheme<CustomAuthenticationOptions,CustomAuthenticationHandler>("custom",null,null);
             services.AddSwaggerGen(c =>
