@@ -10,17 +10,17 @@ namespace PostamatService.Data.Repositories
     {
         public PostamatRepository(RepositoryContext repositoryContext) : base(repositoryContext) { }
 
-        public async Task<IEnumerable<Postamat>> GetAll(bool trackChanges) =>
-            await FindAll(trackChanges)
+        public async Task<IEnumerable<Postamat>> GetAll() =>
+            await FindAll(false)
                 .ToListAsync();
 
-        public async Task<IEnumerable<Postamat>> GetActive(bool trackChanges) =>
-            await FindByCondition(_=>_.IsActive,trackChanges)
+        public async Task<IEnumerable<Postamat>> GetActive() =>
+            await FindByCondition(_=>_.IsActive,false)
                 .OrderBy(_=>_.Number)
                 .ToListAsync();
 
-        public async Task<Postamat> Get(string number, bool trackChanges) =>
-            await FindByCondition(_ => _.Number == number, trackChanges)
+        public async Task<Postamat> Get(string number ) =>
+            await FindByCondition(_ => _.Number == number, false)
                 .SingleOrDefaultAsync();
     }
 }

@@ -18,7 +18,7 @@ namespace PostamatService.Web.ActionFilters
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             var order = context.ActionArguments.Values.SingleOrDefault() as OrderForCreateDto;
-            var postamat = await _postamatRepository.Get(order.PostamatNumber, false);
+            var postamat = await _postamatRepository.Get(order.PostamatNumber);
             if (postamat is null)
             {
                 context.Result = new BadRequestObjectResult($"Postamat with number {order.PostamatNumber} is not exist");
