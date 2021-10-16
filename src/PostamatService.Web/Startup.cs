@@ -63,7 +63,7 @@ namespace PostamatService.Web
             }
             app.ConfigureExceptionHandler(logger);
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseAuthentication();
