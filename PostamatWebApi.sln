@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostamatService.Web", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostamatService.Data", "src\PostamatService.Data\PostamatService.Data.csproj", "{D88BF766-AAD7-4FFE-8342-2E3E51024631}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostamatService.Data.Repositories", "src\PostamatService.Data.Repositories\PostamatService.Data.Repositories.csproj", "{DB83BF19-A8DB-4917-AF72-69F30EB7F623}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostamatService.Data.Repositories", "src\PostamatService.Data.Repositories\PostamatService.Data.Repositories.csproj", "{DB83BF19-A8DB-4917-AF72-69F30EB7F623}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostamatService.Tests", "tests\PostamatService.Tests\PostamatService.Tests.csproj", "{C2D14700-327A-4809-A07E-24483F2F19FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{DB83BF19-A8DB-4917-AF72-69F30EB7F623}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB83BF19-A8DB-4917-AF72-69F30EB7F623}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB83BF19-A8DB-4917-AF72-69F30EB7F623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2D14700-327A-4809-A07E-24483F2F19FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2D14700-327A-4809-A07E-24483F2F19FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2D14700-327A-4809-A07E-24483F2F19FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2D14700-327A-4809-A07E-24483F2F19FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
