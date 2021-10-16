@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
@@ -36,7 +35,6 @@ namespace PostamatService.Web.Controllers
             var order = await _orderRepository.Get(number, false);
             if (order is null)
             {
-                _logger.LogInformation($"Order with number: {number} doesn't exist.");
                 return NotFound();
             }
 

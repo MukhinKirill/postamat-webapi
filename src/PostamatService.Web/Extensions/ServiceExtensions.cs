@@ -44,7 +44,5 @@ namespace PostamatService.Web.Extensions
                 _.AddProvider(new NLogLoggerProvider());
             });
         }
-        public static void ConfigureResponseCaching(this IServiceCollection services) =>
-            services.AddResponseCaching();
     }
 }
