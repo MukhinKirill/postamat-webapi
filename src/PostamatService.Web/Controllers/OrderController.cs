@@ -51,15 +51,10 @@ namespace PostamatService.Web.Controllers
         public async Task<IActionResult> Post([FromBody] OrderForCreateDto order)
         {
             var postamat = HttpContext.Items["postamat"] as Postamat;
-            var orderEntity = _mapper.Map<Order>(order);
-            orderEntity.PostamatId = postamat.Id;
+            var orderEntity = new Order(OrderStatus.Registered, postamat.Id);
+            _mapper.Map(order, orderEntity);
             _orderRepository.CreateOrder(orderEntity);
-            await _orderRepository.SaveAsync();
-            orderEntity.Products = order.Products.Select(_ => new ProductInOrder
-            {
-                Name = _,
-                OrderId = orderEntity.Number
-            }).ToList();
+            orderEntity.UpdateProducts(order.Products);
             await _orderRepository.SaveAsync();
             orderEntity.Postamat = postamat;
             var orderToReturn = _mapper.Map<OrderDto>(orderEntity);
@@ -77,22 +72,7 @@ namespace PostamatService.Web.Controllers
         {
             var orderEntity = HttpContext.Items["order"] as Order;
             _mapper.Map(order, orderEntity);
-            foreach (var product in order.Products.Except(orderEntity.Products.Select(_ => _.Name)))
-            {
-                orderEntity.Products.Add(new ProductInOrder { Name = product, OrderId = orderEntity.Number });
-            }
-            foreach (var product in orderEntity.Products.Select(_ => _.Name).Except(order.Products))
-            {
-                var removeProduct = orderEntity.Products.Single(_ => _.Name == product);
-                orderEntity.Products.Remove(removeProduct);
-            }
-            _orderRepository.UpdateOrder(orderEntity);
-            await _orderRepository.SaveAsync();
-            orderEntity.Products = order.Products.Select(_ => new ProductInOrder
-            {
-                Name = _,
-                OrderId = orderEntity.Number
-            }).ToList();
+            orderEntity.UpdateProducts(order.Products);
             await _orderRepository.SaveAsync();
             return NoContent();
         }
@@ -103,7 +83,7 @@ namespace PostamatService.Web.Controllers
         public async Task<IActionResult> Delete(int number)
         {
             var orderEntity = HttpContext.Items["order"] as Order;
-            orderEntity.Status = OrderStatus.Canceled;
+            orderEntity.Cancel();
             _orderRepository.UpdateOrder(orderEntity);
             await _orderRepository.SaveAsync();
             return NoContent();

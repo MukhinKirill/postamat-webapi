@@ -15,16 +15,11 @@ namespace PostamatService.Web
                         opt.Ignore());
             CreateMap<OrderForCreateDto, Order>()
                 .ForMember(_ => _.Products, opt =>
-                    opt.Ignore())
-                .ForMember(_ => _.Status, opt =>
-                    opt.MapFrom(_ => OrderStatus.Registered));
+                    opt.Ignore());
             CreateMap<Order, OrderDto>()
-                .ForMember(_ => _.PostamatNumber,
-                    opt =>
-                        opt.MapFrom(_ => _.Postamat.Number))
                 .ForMember(_ => _.Products,
                     opt =>
-                        opt.MapFrom(_ => _.Products.Select(_ => _.Name)));
+                        opt.MapFrom(_ => _.Products.Select(p => p.Name)));
         }
     }
 }

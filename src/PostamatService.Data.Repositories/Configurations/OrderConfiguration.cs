@@ -9,23 +9,19 @@ namespace PostamatService.Data.Repositories.Configurations
         public void Configure(EntityTypeBuilder<Order> builder)
         {
             builder.HasData(
-                new Order
+                new Order(OrderStatus.Registered, 1)
                 {
                     Number = 1,
                     Cost = new decimal(1000.21),
                     FullName = "Ivanov Ivan Ivanovich",
                     PhoneNumber = "+7999-111-22-33",
-                    PostamatId = 1,
-                    Status = OrderStatus.Registered
                 },
-                new Order
+                new Order(OrderStatus.InStock, 2)
                 {
                     Number = 2,
                     Cost = new decimal(2000.21),
                     FullName = "Denisov Ivan Ivanovich",
                     PhoneNumber = "+7999-222-22-33",
-                    PostamatId = 2,
-                    Status = OrderStatus.InStock
                 }
             );
         }
